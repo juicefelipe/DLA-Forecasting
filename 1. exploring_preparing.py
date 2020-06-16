@@ -10,7 +10,7 @@ import pandas as pd
 df['TOM1'] = df['TOM1'].str.replace("'", "")
 df['TOM1'] = df['TOM1'].astype('float64')
 df['reportmonth'] = pd.to_datetime(df['reportmonth'])
-df.info()
+print(df.info())
 
 #Filter for just DLA
 dla = df[df['agencyname']=='Dixie Leavitt Agency']
@@ -19,7 +19,7 @@ dla = df[df['agencyname']=='Dixie Leavitt Agency']
 print(dla.isnull().mean().sort_values(ascending = False))
 
 #Where are all the nulls coming from?
-dla.tail(8)
+print(dla.tail(8))
 
 #Since the only nulls are the most recent months. For now we will assume they just have not yet been recorded.
 
@@ -33,7 +33,7 @@ print(dla_select.shape)
 print(dla_select.info())
 
 #Also view the correlations matrix. We don't want to include redundant information if we don't need to.
-dla_select.corr()
+print(dla_select.corr())
 
 #Notice the nearly perfect correlation between pyproduction and pytotalbusiness. 
 #We will use only one of these because the information is nearly identical. For now, we will drop pytotalbusiness.
@@ -54,13 +54,13 @@ dla_select_drop.loc['2020-12-31', 'avg_unemployment_rate_us'] = 13
 
 #Consider the scale of each column. Large differences in scale could mean one column dominates the model weights. 
 #Looking here at the columns variance we see there are huge scale differences
-dla_select_drop.var()
+print(dla_select_drop.var())
 
 #We will scale each column appropriately to have mean 0 and variance 1 after separating into training and testing data sets,
 #but first split into historical and future data.
 historical = dla_select_drop[:'2020-05-01']
 new_data = dla_select_drop['2020-05-01':]
-new_data.head()
+print(new_data.head())
 
 #There are 2 columns in the newdata set that still have nulls that we need to fix, activity_count and pyproduction. 
 #Activity_Count we will fill with the historical average and PYproduction will be filled with last year's CYproduction.
