@@ -1,4 +1,4 @@
 # DLA-Forecasting
 An example of code I used analyzing and forecasting ARC for DLA
 
-I will intentionally be hiding the actual dataset used for privacy and only displaying code along with results.
+This project and code are versions of the original done in a Jupyter Notebook. Hence the step by step 'code block' approach.
